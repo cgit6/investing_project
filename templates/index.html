@@ -1,0 +1,93 @@
+{% extends "base.html"%}{% block content %}
+<div id="cash-info">
+  <h2>現金庫存</h2>
+  <table class="table table-bordered">
+    <tr>
+      <td>台幣總額: {{data["td"]}}元</td>
+      <td>美金總額: {{data["ud"]}}元</td>
+      <td>今日匯率(全球匯率api):{{data["currency"]}}</td>
+      <td>現金總額: {{data["total"]}}元</td>
+    </tr>
+  </table>
+  <h4>現金更動紀錄</h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">台幣</th>
+        <th scope="col">美金</th>
+        <th scope="col">註記</th>
+        <th scope="col">時間</th>
+        <th scope="col">刪除資料</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in data["cash_result"] %}
+      <tr>
+        <td>{{data[0]}}</td>
+        <td>{{data[1]}}</td>
+        <td>{{data[2]}}</td>
+        <td>{{data[3]}}</td>
+        <td>{{data[4]}}</td>
+        <td>
+          <form action="/cash-delete" method="post">
+            <!-- 將...post送到資料庫用於刪除資料 -->
+            <input type="hidden" name="id" value="{{data[0]}}" />
+            <button class="btn btn-primary">刪除資料</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<hr />
+
+<div id="stock-info">
+  <h2>股票庫存(🤔不能輸入不存在的股票代號不然網站會壞掉)</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">股票代號</th>
+        <th scope="col">持有股數</th>
+        <th scope="col">目前股價</th>
+        <th scope="col">目前市值/th></th>
+        <th scope="col">股票資產占比(%)</th>
+        <th scope="col">購買總成本(含手續費)</th>
+        <th scope="col">平均成本</th>
+        <th scope="col">報酬率(%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in data['stock_info'] %}
+      <tr>
+        <td>{{d['stock_id']}}</td>
+        <td>{{d['shares']}}</td>
+        <td>{{d['current_price']}}</td>
+        <td>{{d['total_value']}}</td>
+        <td>{{d['value_percentage']}}</td>
+        <td>{{d['stock_cost']}}</td>
+        <td>{{d['average_cost']}}</td>
+        <td>{{d['rate_of_return']}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- 繪製圖表 -->
+<div id="chart" style="display: flex; flex-wrap: wrap">
+  {% if data['show_pic_1'] %}
+  <figure style="flex: 0 1 500px; margin: 10px">
+    <figcaption>股票庫存占比圖</figcaption>
+    <img style="width: 100%" src="/static/piechart.jpg" alt="股票庫存占比圖" />
+  </figure>
+  {% endif %} {% if data['show_pic_2'] %}
+  <figure style="flex: 0 1 500px; margin: 10px">
+    <figcaption>資產比例占比圖</figcaption>
+    <img style="width: 100%" src="/static/piechart2.jpg" alt="資產比例占比圖" />
+  </figure>
+  {% endif %}
+</div>
+{% endblock %}

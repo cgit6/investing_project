@@ -1,0 +1,46 @@
+{% extends "base.html"%}{% block content %}
+<form method="post" action="http://127.0.0.1:5000/stock">
+  <div class="mb-3">
+    <label for="stock_id" class="form-label">股票代號</label>
+    <input type="text" class="form-control" id="stock_id" name="stock_id" />
+  </div>
+
+  <div class="mb-3">
+    <label for="stock_num" class="form-label">成交股數</label>
+    <input type="number" class="form-control" id="stock_num" name="stock_num" />
+  </div>
+
+  <div class="mb-3">
+    <label for="stock_price" class="form-label">成交單價</label>
+    <input
+      step="0.01"
+      type="number"
+      class="form-control"
+      id="stock_price"
+      name="stock_price"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="processing_fee" class="form-label">手續費</label>
+    <input
+      type="number"
+      class="form-control"
+      id="processing-fee"
+      name="processing_fee"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="tax" class="form-label">交易稅</label>
+    <input type="number" class="form-control" id="tax" name="tax" />
+  </div>
+
+  <div class="mb-3">
+    <label for="date" class="form-label">日期</label>
+    <input type="date" class="form-control" id="date" name="date" />
+  </div>
+
+  <button type="submit" class="btn btn-primary">提交</button>
+</form>
+{% endblock %}
