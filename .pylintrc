@@ -1,0 +1,42 @@
+[MASTER]
+# 當前目錄為源代碼的根目錄
+init-hook="import sys; sys.path.append('.')"
+
+# 遞歸的設置要分析的包
+recursive=yes
+
+
+# 設置啟用的消息類型
+enable=all
+
+# 設置要禁用的消息類型
+disable=C0111,  # Missing docstring
+
+[MESSAGES CONTROL]
+# 這裡你可以禁用具體的消息
+disable=
+    missing-docstring,
+    invalid-name,
+    too-many-arguments,
+    too-many-locals,
+    too-many-branches,
+    too-many-statements,
+    too-few-public-methods,
+    no-self-use,
+    too-many-lines
+
+[REPORTS]
+# 設置報告格式
+output-format=colorized
+
+[FORMAT]
+# 設置代碼行長度
+max-line-length=100
+
+[DESIGN]
+# 設置最大類的屬性數量
+max-attributes=10
+
+[SIMILARITIES]
+# 設置類似代碼檢測
+min-similarity-lines=4
