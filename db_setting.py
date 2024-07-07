@@ -1,6 +1,6 @@
 import sqlite3
 # 連結到資料庫
-conn = sqlite3.connect("datafile.db")
+conn = sqlite3.connect("./investing_project/datafile4.db")
 cursor = conn.cursor()
 
 # 創建 table1 => cash
